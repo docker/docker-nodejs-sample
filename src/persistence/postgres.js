@@ -59,13 +59,13 @@ async function getItems() {
 }
 
 
-// Drop the table if it exists
+// End the connection
 async function teardown() {
-    return client.query('DROP TABLE IF EXISTS todo_items').then(() => {
-      console.log('Dropped the table');
-    }).catch(err => {
-      console.error('Unable to drop the table:', err);
-    });
+  return client.end().then(() => {
+    console.log('Client ended');
+  }).catch(err => {
+    console.error('Unable to end client:', err);
+  });
 }
   
 // Get one item by id from the table
