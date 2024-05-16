@@ -1,0 +1,12 @@
+*.md
+.gitignore
+.git
+.coverage
+.coverage.*
+.env
+.aws
+
+**/node_modules/
+**/dist
+
+npm-debug.log

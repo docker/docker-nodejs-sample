@@ -1,0 +1,43 @@
+version: '3.7'
+
+volumes:
+  database_data:
+    driver: local
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - database_data:/var/lib/postgresql/data
+
+  node-app:
+    container_name: node-app
+    image: node-app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: prod
+    volumes:
+      - app/src
+    ports:
+      - 3000:3000
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: unless-stopped
+    links:
+      - db
+    #command: npm run dev
+
+
+
+   
+    
+
